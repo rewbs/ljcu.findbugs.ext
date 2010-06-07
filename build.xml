@@ -1,0 +1,65 @@
+<project name="myProduct.findbugsExt" default="build" basedir=".">
+
+	<property name="myProduct.build.dir" location="../myProduct.build" />
+	<property name="findbugs.home.dir" location="${myProduct.build.dir}/deps/findbugs" />
+	<property name="findbugs.lib.dir" location="${findbugs.home.dir}/lib" />
+	<property name="findbugs.plugin.dir" location="${findbugs.home.dir}/plugin" />
+
+	<property name="dist.jar.version" value="0.1" />
+	<property name="dist.jar.name" value="myProduct.findBugsExt-${dist.jar.version}.jar" />
+	<property name="test.jar.name" value="myProduct.findBugsExt-test-${dist.jar.version}.jar" />
+
+	<path id="deps.path">
+		<fileset dir="${findbugs.lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="clean" description="Remove all generated files">
+		<delete dir="bin" />
+		<delete dir="reports" />
+		<delete dir="dist" />
+	</target>
+
+	<target name="build" description="Build the findbugs plugin" depends="compile" />
+
+	<target name="compile">
+		<mkdir dir="bin" />
+		<javac debug="on" destdir="bin" target="1.6" source="1.6">
+			<src path="src" />
+			<include name="**" />
+			<classpath location="src" />
+			<classpath refid="deps.path" />
+			<compilerarg value="-Xlint:unchecked" />
+		</javac>
+	</target>
+
+	<target name="package" depends="build, test">
+		<mkdir dir="dist" />
+		<jar destfile="dist/${dist.jar.name}">
+			<fileset dir="bin" />
+			<fileset dir="etc" />
+			<fileset dir="." includes="LICENCE.txt" />
+		</jar>
+	</target>
+
+	<!-- Todo: should be moved to build project, otherwise this creates and undesirable dependency from the fb ext project on the build project -->
+	<target name="deploy" description="Deploy the findbugs plugin to the build's findbugs instance" depends="package">
+		<copy file="dist/${dist.jar.name}" todir="${findbugs.plugin.dir}" overwrite="true" verbose="true" />
+	</target>
+
+	<target name="deploy-eclipse" description="Deploy the findbugs plugin to your eclise instance" depends="package">
+		<fail unless="eclipe.findbugs.plugin.dir" message="Eclipse findbugs plugin location not set in property eclipe.findbugs.plugin.dir." />
+
+		<available file="${eclipe.findbugs.plugin.dir}" type="dir" property="eclipe.findbugs.plugin.dir.available" />
+		<fail unless="eclipe.findbugs.plugin.dir.available" message="Eclipse findbugs plugin location is set in property eclipe.findbugs.plugin.dir, but is not a valid directory ${eclipe.findbugs.plugin.dir}." />
+
+		<copy file="dist/${dist.jar.name}" todir="${eclipe.findbugs.plugin.dir}" overwrite="true" verbose="true" />
+	</target>
+
+
+	<target name="test" description="Test the findbugs plugin" >
+
+	</target>
+
+</project>

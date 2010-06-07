@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MessageCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="messagecollection.xsd">
+
+	<Plugin>
+		<ShortDescription>project zero plugin</ShortDescription>
+		<Details>
+			<![CDATA[
+			<p>
+			This plugin contains FindBugs detectors from the project zero project
+			</p>
+			]]>
+		</Details>
+	</Plugin>
+
+	
+	<Detector class="zero.detector.DefaultEncodingDetector">
+		<Details>
+<![CDATA[
+<p> Found a call to a method which will perform a byte to string (or string to byte) conversion, and will assume that the default platform is suitable. This will cause the application behaviour to vary from platform to platform. Use an alternative API and specify an charset name or Charset object explicitly.
+]]>
+		</Details>
+	</Detector>
+
+
+	<BugPattern type="ZERO_DEFAULT_ENCODING">
+		<ShortDescription>Reliance on default encoding</ShortDescription>
+		<LongDescription>Found reliance on default encoding in {1}: {2}
+		</LongDescription>
+		<Details>
+<![CDATA[
+<p> Found a call to a method which will perform a byte to string (or string to byte) conversion, and will assume that the default platform is suitable. This will cause the application behaviour to vary from platform to platform. Use an alternative API and specify an charset name or Charset object explicitly.
+]]>
+		</Details>
+	</BugPattern>
+
+	<BugCode abbrev="DENC">Found default encoding usage</BugCode>
+</MessageCollection>
