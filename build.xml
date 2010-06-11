@@ -4,7 +4,7 @@
 	<property name="findbugs.lib.dir" location="${findbugs.home.dir}/lib" />
 	<property name="findbugs.plugin.dir" location="${findbugs.home.dir}/plugin" />
 
-	<property name="dist.jar.version" value="0.1" />
+	<property name="dist.jar.version" value="0.2" />
 	<property name="dist.jar.name" value="defaultencoding.findbugs.ext-${dist.jar.version}.jar" />
 	<property name="test.jar.name" value="defaultencoding.findbugs.ext-${dist.jar.version}.jar" />
 
