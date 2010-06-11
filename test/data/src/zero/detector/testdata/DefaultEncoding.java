@@ -16,41 +16,10 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Formatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.Map.Entry;
 
-import zero.detector.DefaultEncodingDetector;
-
-import edu.umd.cs.findbugs.BugInstance;
-import edu.umd.cs.findbugs.BugPattern;
-import edu.umd.cs.findbugs.Detector;
-import edu.umd.cs.findbugs.Detector2;
-import edu.umd.cs.findbugs.DetectorToDetector2Adapter;
-import edu.umd.cs.findbugs.FindBugs2;
-import edu.umd.cs.findbugs.I18N;
-import edu.umd.cs.findbugs.MethodAnnotation;
-import edu.umd.cs.findbugs.NoOpFindBugsProgress;
-import edu.umd.cs.findbugs.ba.AnalysisCacheToAnalysisContextAdapter;
-import edu.umd.cs.findbugs.ba.AnalysisContext;
-import edu.umd.cs.findbugs.ba.FieldSummary;
-import edu.umd.cs.findbugs.ba.XClass;
-import edu.umd.cs.findbugs.ba.XMethod;
-import edu.umd.cs.findbugs.classfile.CheckedAnalysisException;
-import edu.umd.cs.findbugs.classfile.ClassDescriptor;
-import edu.umd.cs.findbugs.classfile.DescriptorFactory;
-import edu.umd.cs.findbugs.classfile.Global;
-import edu.umd.cs.findbugs.classfile.IAnalysisCache;
-import edu.umd.cs.findbugs.classfile.IClassFactory;
-import edu.umd.cs.findbugs.classfile.IClassPath;
-import edu.umd.cs.findbugs.classfile.IClassPathBuilder;
-import edu.umd.cs.findbugs.classfile.ICodeBaseLocator;
-import edu.umd.cs.findbugs.classfile.analysis.AnnotationValue;
-import edu.umd.cs.findbugs.classfile.impl.ClassFactory;
 import findbugs.test.support.ExpectBug;
-import findbugs.test.support.SimpleBugReporter;
 
 public class DefaultEncoding {
 

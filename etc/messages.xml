@@ -4,11 +4,11 @@
 	xsi:noNamespaceSchemaLocation="messagecollection.xsd">
 
 	<Plugin>
-		<ShortDescription>project zero plugin</ShortDescription>
+		<ShortDescription>Default encoding plugin</ShortDescription>
 		<Details>
 			<![CDATA[
 			<p>
-			This plugin contains FindBugs detectors from the project zero project
+			This plugin contains a FindBugs extension to detect uses of the default platform encoding.
 			</p>
 			]]>
 		</Details>
@@ -18,7 +18,7 @@
 	<Detector class="zero.detector.DefaultEncodingDetector">
 		<Details>
 <![CDATA[
-<p> Found a call to a method which will perform a byte to string (or string to byte) conversion, and will assume that the default platform is suitable. This will cause the application behaviour to vary from platform to platform. Use an alternative API and specify an charset name or Charset object explicitly.
+<p> Found a call to a method which will perform a byte to String (or String to byte) conversion, and will assume that the default platform encoding is suitable. This will cause the application behaviour to vary between platforms. Use an alternative API and specify a charset name or Charset object explicitly.
 ]]>
 		</Details>
 	</Detector>
@@ -30,7 +30,7 @@
 		</LongDescription>
 		<Details>
 <![CDATA[
-<p> Found a call to a method which will perform a byte to string (or string to byte) conversion, and will assume that the default platform is suitable. This will cause the application behaviour to vary from platform to platform. Use an alternative API and specify an charset name or Charset object explicitly.
+<p> Found a call to a method which will perform a byte to String (or String to byte) conversion, and will assume that the default platform encoding is suitable. This will cause the application behaviour to vary between platforms. Use an alternative API and specify a charset name or Charset object explicitly.
 ]]>
 		</Details>
 	</BugPattern>
