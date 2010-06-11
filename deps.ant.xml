@@ -1,0 +1,33 @@
+<project name="myProduct-deps" basedir="." default="install">
+
+	<property name="findbugs.dir" location="deps/findbugs" />
+	<property name="findbugs.version" value="1.3.9" />
+
+	<target name="install" description="Fetch the deps that are not already present"
+			depends="-check-findbugs, -get-findbugs" />
+	
+	<target name="rem-deps" description="Throw away all downloaded dependencies">
+		<delete dir="deps"  />
+	</target>
+
+	<target name="-check-findbugs" unless="findbugs.available">
+		<available property="findbugs.available" file="${findbugs.dir}/bin/findbugs" />
+	</target>
+	
+	<target name="-get-findbugs" unless="findbugs.available">
+		<mkdir dir="findbugs-download" />
+		<mkdir dir="${findbugs.dir}" />
+		<echo>Downloading findbugs v${findbugs.version} from sourceforge...</echo>
+		<get src="http://mesh.dl.sourceforge.net/project/findbugs/findbugs/${findbugs.version}/findbugs-${findbugs.version}.tar.gz"
+			dest="findbugs-download/findbugs.tar.gz" verbose="true" />
+		<untar src="findbugs-download/findbugs.tar.gz" compression="gzip" dest="${findbugs.dir}">
+			<mapper type="glob" from="findbugs-${findbugs.version}/*" to="*" />
+			<patternset>
+				<exclude name="findbugs-${findbugs.version}/doc" />
+				<exclude name="findbugs-${findbugs.version}/doc/**" />
+			</patternset>
+		</untar>
+		<delete dir="findbugs-download"  />
+	</target>
+
+</project>

@@ -1,13 +1,12 @@
 <project name="myProduct.findbugsExt" default="build" basedir=".">
 
-	<property name="myProduct.build.dir" location="../myProduct.build" />
-	<property name="findbugs.home.dir" location="${myProduct.build.dir}/deps/findbugs" />
+	<property name="findbugs.home.dir" location="deps/findbugs" />
 	<property name="findbugs.lib.dir" location="${findbugs.home.dir}/lib" />
 	<property name="findbugs.plugin.dir" location="${findbugs.home.dir}/plugin" />
 
 	<property name="dist.jar.version" value="0.1" />
-	<property name="dist.jar.name" value="myProduct.findBugsExt-${dist.jar.version}.jar" />
-	<property name="test.jar.name" value="myProduct.findBugsExt-test-${dist.jar.version}.jar" />
+	<property name="dist.jar.name" value="defaultencoding.findbugs.ext-${dist.jar.version}.jar" />
+	<property name="test.jar.name" value="defaultencoding.findbugs.ext-${dist.jar.version}.jar" />
 
 	<path id="deps.path">
 		<fileset dir="${findbugs.lib.dir}">
@@ -17,33 +16,28 @@
 
 	<target name="clean" description="Remove all generated files">
 		<delete dir="bin" />
+		<delete dir="test/data/bin" />
+		<delete dir="test/bin" />
 		<delete dir="reports" />
 		<delete dir="dist" />
+	</target>
+
+	<target name="deps" description="Obtain all dependencies">
+		<ant antfile="deps.ant.xml" target="install" />
 	</target>
 
 	<target name="build" description="Build the findbugs plugin" depends="compile" />
 
 	<target name="compile">
 		<mkdir dir="bin" />
-		<javac debug="on" destdir="bin" target="1.6" source="1.6">
+		<javac debug="on" destdir="bin" target="1.5" source="1.5">
 			<src path="src" />
 			<include name="**" />
 			<classpath location="src" />
 			<classpath refid="deps.path" />
-			<compilerarg value="-Xlint:unchecked" />
 		</javac>
 	</target>
 
-	<target name="package" depends="build, test">
-		<mkdir dir="dist" />
-		<jar destfile="dist/${dist.jar.name}">
-			<fileset dir="bin" />
-			<fileset dir="etc" />
-			<fileset dir="." includes="LICENCE.txt" />
-		</jar>
-	</target>
-
-	<!-- Todo: should be moved to build project, otherwise this creates and undesirable dependency from the fb ext project on the build project -->
 	<target name="deploy" description="Deploy the findbugs plugin to the build's findbugs instance" depends="package">
 		<copy file="dist/${dist.jar.name}" todir="${findbugs.plugin.dir}" overwrite="true" verbose="true" />
 	</target>
@@ -58,8 +52,77 @@
 	</target>
 
 
-	<target name="test" description="Test the findbugs plugin" >
+	<target name="test" description="Test the findbugs plugin" depends="build, compile-test">
+		<mkdir dir="reports" />
+		<junit printsummary="yes" failureproperty="junit.failed">
+			<classpath>
+				<pathelement location="bin" />
+				<pathelement location="test/bin" />
+				<pathelement location="test/data/bin" />
+			</classpath>
+			<classpath refid="deps.path" />
 
+
+			<formatter type="plain" />
+
+			<batchtest fork="false" todir="reports">
+				<fileset dir="test/junit">
+					<include name="**/*Test*.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+		
+		<fail if="junit.failed">At least one unit test failed - see report for details.</fail>
+		
+	</target>
+
+	<target name="compile-test">
+		<mkdir dir="test/bin" />
+		<javac debug="on" destdir="test/bin" target="1.5" source="1.5">
+			<src path="test/junit" />
+			<include name="**" />
+			<classpath location="src" />
+			<classpath location="bin" />
+			<classpath refid="deps.path" />
+		</javac>
+
+		<mkdir dir="test/data/bin" />
+		<javac debug="on" destdir="test/data/bin" target="1.5" source="1.5">
+			<src path="test/data/src" />
+			<include name="**" />
+			<classpath location="src" />
+			<classpath location="bin" />
+			<classpath location="test/bin" />
+			<classpath refid="deps.path" />
+		</javac>
+
+	</target>
+
+	<target name="findbugs" description="Run findbugs on the project">
+		<mkdir dir="reports" />
+		<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="deps.path" />
+		<findbugs home="deps/findBugs" output="html" outputFile="reports/findbugsReport.html" jvmargs="-Xmx128m">
+
+			<!-- Finbugs's own classes are required as auxiliary classes,
+				 so that it can analyse the plugin -->
+			<auxClasspath refid="deps.path" />
+
+			<sourcePath path="src" />
+			<sourcePath path="test/junit" />
+			<class location="bin" />
+			<class location="test/bin" />
+		</findbugs>
+	</target>
+
+	<target name="dist" description="Build, test, package and find bugs" depends="build, test, deploy, findbugs" />
+
+	<target name="package" depends="build, test">
+		<mkdir dir="dist" />
+		<jar destfile="dist/${dist.jar.name}">
+			<fileset dir="bin" />
+			<fileset dir="etc" />
+			<fileset dir="." includes="LICENCE.txt" />
+		</jar>
 	</target>
 
 </project>

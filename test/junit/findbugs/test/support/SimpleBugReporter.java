@@ -1,40 +1,45 @@
-package zero.detector;
+package findbugs.test.support;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.BugReporter;
 import edu.umd.cs.findbugs.BugReporterObserver;
+import edu.umd.cs.findbugs.MethodAnnotation;
 import edu.umd.cs.findbugs.ProjectStats;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
-class SimpleBugReporter implements BugReporter {
-	private ProjectStats stats = new ProjectStats();
+public class SimpleBugReporter implements BugReporter {
 	private List<BugInstance> bugs = new ArrayList<BugInstance>();
 
+	private Map<MethodAnnotation, List<BugInstance>> bugsPerMethod = new HashMap<MethodAnnotation, List<BugInstance>>(); 
+	
+	public SimpleBugReporter() {
+	}
+	
 	public List<BugInstance> getBugs() {
 		return bugs;
 	}
-
-	public SimpleBugReporter() {
+	
+	public Map<MethodAnnotation, List<BugInstance>> getBugsPerMethod() {
+		return bugsPerMethod;
 	}
 
 	@Override
 	public void addObserver(BugReporterObserver arg0) {
-//		observers.add(arg0);
 	}
 
 	@Override
 	public void finish() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public ProjectStats getProjectStats() {
-		return stats;
+		return new ProjectStats();
 	}
 
 	@Override
@@ -43,8 +48,18 @@ class SimpleBugReporter implements BugReporter {
 	}
 
 	@Override
-	public void reportBug(BugInstance arg0) {
-		bugs.add(arg0);
+	public void reportBug(BugInstance bug) {
+		// Add bug to flat list of bugs
+		bugs.add(bug);
+
+		// Add bug per-method list of bugs
+		MethodAnnotation buggyMethod = bug.getPrimaryMethod();
+		if (!bugsPerMethod.containsKey(buggyMethod)) {
+			bugsPerMethod.put(buggyMethod, new ArrayList<BugInstance>());
+		}
+		List<BugInstance> methodBugs = bugsPerMethod.get(buggyMethod);
+		methodBugs.add(bug);
+		
 	}
 
 	@Override
