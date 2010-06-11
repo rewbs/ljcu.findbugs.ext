@@ -1,4 +1,4 @@
-package zero.detector;
+package org.soal.detector;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +8,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.junit.Test;
+import org.soal.detector.DefaultEncodingDetector;
+import org.soal.test.support.ExpectBug;
+import org.soal.test.support.SimpleBugReporter;
+
 
 import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.BugPattern;
@@ -34,8 +38,6 @@ import edu.umd.cs.findbugs.classfile.IClassPathBuilder;
 import edu.umd.cs.findbugs.classfile.ICodeBaseLocator;
 import edu.umd.cs.findbugs.classfile.analysis.AnnotationValue;
 import edu.umd.cs.findbugs.classfile.impl.ClassFactory;
-import findbugs.test.support.ExpectBug;
-import findbugs.test.support.SimpleBugReporter;
 
 public class DefaultEncodingDetectorTest {
 
@@ -46,7 +48,7 @@ public class DefaultEncodingDetectorTest {
 		SimpleBugReporter bugReporter = new SimpleBugReporter();
 		
 		BugPattern bugPattern = new BugPattern(
-				"ZERO_DEFAULT_ENCODING", "DENC", "Reliance on default encoding {0}:{1}", false, "Reliance on default encoding {0}:{1}", "", "");
+				"SOAL_DEFAULT_ENCODING", "DENC", "Reliance on default encoding {0}:{1}", false, "Reliance on default encoding {0}:{1}", "", "");
 
 		// register the rules message
 		I18N.instance().registerBugPattern(bugPattern);

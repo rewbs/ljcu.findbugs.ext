@@ -1,4 +1,4 @@
-package zero.detector;
+package org.soal.detector;
 
 import org.apache.bcel.classfile.Code;
 
@@ -53,7 +53,7 @@ public class DefaultEncodingDetector extends OpcodeStackDetector {
 			DefaultEncodingAnnotation annotation = defaultEncodingAnnotationDatabase.getDirectAnnotation(callSeen);
 			if (annotation != null) {
 				bugReporter.reportBug(
-						new BugInstance(this, "ZERO_DEFAULT_ENCODING", HIGH_PRIORITY)
+						new BugInstance(this, "SOAL_DEFAULT_ENCODING", HIGH_PRIORITY)
 						.addClassAndMethod(this)
 						.addCalledMethod(this)
 						.addSourceLine(this));

@@ -1,4 +1,4 @@
-package zero.detector.testdata;
+package org.soal.detector.testdata;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -19,7 +19,8 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Scanner;
 
-import findbugs.test.support.ExpectBug;
+import org.soal.test.support.ExpectBug;
+
 
 public class DefaultEncoding {
 

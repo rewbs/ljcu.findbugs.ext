@@ -1,4 +1,4 @@
-package findbugs.test.support;
+package org.soal.test.support;
 
 import java.util.ArrayList;
 import java.util.HashMap;

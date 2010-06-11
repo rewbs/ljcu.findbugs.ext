@@ -1,4 +1,4 @@
-package zero.detector;
+package org.soal.detector;
 
 import edu.umd.cs.findbugs.ba.AnnotationDatabase;
 

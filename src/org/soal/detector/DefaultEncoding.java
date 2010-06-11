@@ -1,4 +1,4 @@
-package zero.detector;
+package org.soal.detector;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

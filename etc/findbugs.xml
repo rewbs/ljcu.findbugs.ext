@@ -2,13 +2,13 @@
 
 <FindbugsPlugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    				xsi:noNamespaceSchemaLocation="findbugsplugin.xsd"
-				pluginid="zero.detector.extras"
+				pluginid="soal.detector.extras"
                 defaultenabled="true"
-                provider="project zero" 
-                website="http://www.projectzero.org">
+                provider="soal" 
+                website="http://blog.soal.org">
                 
-  <Detector class="zero.detector.DefaultEncodingDetector" speed="fast" reports="ZERO_DEFAULT_ENCODING"/>
+  <Detector class="org.soal.detector.DefaultEncodingDetector" speed="fast" reports="SOAL_DEFAULT_ENCODING"/>
   
-  <BugPattern abbrev="DENC" type="ZERO_DEFAULT_ENCODING" category="BAD_PRACTICE" />
+  <BugPattern abbrev="DENC" type="SOAL_DEFAULT_ENCODING" category="BAD_PRACTICE" />
   
 </FindbugsPlugin>
