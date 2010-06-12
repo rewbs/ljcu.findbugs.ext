@@ -1,6 +1,7 @@
 package org.soal.detector;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,78 +9,58 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.junit.Test;
-import org.soal.detector.DefaultEncodingDetector;
-import org.soal.test.support.ExpectBug;
-import org.soal.test.support.SimpleBugReporter;
-
+import org.soal.findbugs.test.support.DetectorTester;
+import org.soal.findbugs.test.support.ExpectBug;
+import org.soal.findbugs.test.support.SimpleBugReporter;
 
 import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.BugPattern;
-import edu.umd.cs.findbugs.Detector;
-import edu.umd.cs.findbugs.Detector2;
-import edu.umd.cs.findbugs.DetectorToDetector2Adapter;
-import edu.umd.cs.findbugs.FindBugs2;
-import edu.umd.cs.findbugs.I18N;
 import edu.umd.cs.findbugs.MethodAnnotation;
-import edu.umd.cs.findbugs.NoOpFindBugsProgress;
-import edu.umd.cs.findbugs.ba.AnalysisCacheToAnalysisContextAdapter;
-import edu.umd.cs.findbugs.ba.AnalysisContext;
-import edu.umd.cs.findbugs.ba.FieldSummary;
 import edu.umd.cs.findbugs.ba.XClass;
 import edu.umd.cs.findbugs.ba.XMethod;
 import edu.umd.cs.findbugs.classfile.CheckedAnalysisException;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.DescriptorFactory;
 import edu.umd.cs.findbugs.classfile.Global;
-import edu.umd.cs.findbugs.classfile.IAnalysisCache;
-import edu.umd.cs.findbugs.classfile.IClassFactory;
-import edu.umd.cs.findbugs.classfile.IClassPath;
-import edu.umd.cs.findbugs.classfile.IClassPathBuilder;
-import edu.umd.cs.findbugs.classfile.ICodeBaseLocator;
 import edu.umd.cs.findbugs.classfile.analysis.AnnotationValue;
-import edu.umd.cs.findbugs.classfile.impl.ClassFactory;
 
 public class DefaultEncodingDetectorTest {
 
+	/**
+	 * Run FindBugs analysis on <code>DefaultEncodingTestData</code> with detector 
+	 *
+	 * @throws CheckedAnalysisException the checked analysis exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InterruptedException the interrupted exception
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws NoSuchMethodException 
+	 * @throws IllegalArgumentException 
+	 * @throws SecurityException 
+	 */
 	@Test
-	public void testTheUniverse() throws CheckedAnalysisException, IOException, InterruptedException {
+	public void testDetector() throws CheckedAnalysisException, IOException, InterruptedException, SecurityException, IllegalArgumentException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
-		String filePath = "test/data/bin";
+		// Prepare detector to analyse
+		String classPathToAnalyse = "test/data/bin";
 		SimpleBugReporter bugReporter = new SimpleBugReporter();
-		
 		BugPattern bugPattern = new BugPattern(
 				"SOAL_DEFAULT_ENCODING", "DENC", "Reliance on default encoding {0}:{1}", false, "Reliance on default encoding {0}:{1}", "", "");
 
-		// register the rules message
-		I18N.instance().registerBugPattern(bugPattern);
-
-		// a great deal of code to say 'analyze the files in this directory'
-		IClassFactory classFactory = ClassFactory.instance();
-		IClassPath classPath = classFactory.createClassPath();
-		IAnalysisCache analysisCache = classFactory.createAnalysisCache(classPath, bugReporter);
-		Global.setAnalysisCacheForCurrentThread(analysisCache);
-		FindBugs2.registerBuiltInAnalysisEngines(analysisCache);
-		IClassPathBuilder builder = classFactory.createClassPathBuilder(bugReporter);
-		ICodeBaseLocator locator = classFactory.createFilesystemCodeBaseLocator(filePath);
-		builder.addCodeBase(locator, true);
-		builder.build(classPath, new NoOpFindBugsProgress());
-		List<ClassDescriptor> classesToAnalyze = builder.getAppClassList();
-		AnalysisCacheToAnalysisContextAdapter analysisContext = new AnalysisCacheToAnalysisContextAdapter();
-		analysisContext.setFieldSummary(new FieldSummary());
-		AnalysisContext.setCurrentAnalysisContext(analysisContext);
-
-		Detector detector = new DefaultEncodingDetector(bugReporter);
-		Detector2 det = new DetectorToDetector2Adapter(detector);
-
-		// digest class descriptors (required by findbugs)
-		for (ClassDescriptor d : classesToAnalyze) {			
-			XClass xclass = Global.getAnalysisCache().getClassAnalysis(XClass.class, d);
-			AnalysisContext.currentXFactory().intern(xclass);
-		}
+		// Prepare engine for analysis of our detector 
+		DetectorTester detectorTester = new DetectorTester();
+		detectorTester.setBugPattern(bugPattern);
+		detectorTester.setBugReporter(bugReporter);
 		
-		// find all expected bugs
+		// Perform analysis
+		List<ClassDescriptor> analysedClasses =
+			detectorTester.analyse(DefaultEncodingDetector.class, classPathToAnalyse);
+		
+		
+		// Find all expected bugs in analysed classes
 		Map<MethodAnnotation, Integer> expectedBugs = new HashMap<MethodAnnotation, Integer>();
-		for (ClassDescriptor d : classesToAnalyze) {	
+		for (ClassDescriptor d : analysedClasses) {	
 			XClass xclass = Global.getAnalysisCache().getClassAnalysis(XClass.class, d);
 			for (XMethod m: xclass.getXMethods()) {
 				MethodAnnotation method = MethodAnnotation.fromXMethod(m);
@@ -89,15 +70,9 @@ public class DefaultEncodingDetectorTest {
 				}
 			}
 		}
-		
-		// finally, perform the analysis
-		for (ClassDescriptor d : classesToAnalyze) {
-			det.visitClass(d);
-		}
-		
+			
+		// Check all detected bugs were expected
 		List<String> failures = new ArrayList<String>();  
-		
-		// Check all found bugs are expected
 		for (Entry<MethodAnnotation, List<BugInstance>> entry : bugReporter.getBugsPerMethod().entrySet()) {
 			MethodAnnotation buggyMethod = entry.getKey();
 			List<BugInstance> foundBugs = entry.getValue();
@@ -114,11 +89,13 @@ public class DefaultEncodingDetectorTest {
 			}
 		}
 		
+		// Check all expected bugs were detected
 		for (Entry<MethodAnnotation, Integer> entry : expectedBugs.entrySet()) {
 			failures.add(String.format("%s, expected %d bug(s), 0 detected.\n",
 					entry.getKey(), entry.getValue()));
 		}
 
+		// Report unexpected / missing failures		
 		if (failures.size() > 0) {
 			System.out.println(failures.toString());
 			throw new RuntimeException("Failures not as expected - see stdout for details.");

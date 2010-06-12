@@ -1,4 +1,4 @@
-package org.soal.test.support;
+package org.soal.findbugs.test.support;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +13,9 @@ import edu.umd.cs.findbugs.ProjectStats;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
+/**
+ * Accumulates bugs in a simple list and a by-method map.
+ */
 public class SimpleBugReporter implements BugReporter {
 	private List<BugInstance> bugs = new ArrayList<BugInstance>();
 

@@ -19,10 +19,19 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Scanner;
 
-import org.soal.test.support.ExpectBug;
+import org.soal.findbugs.test.support.ExpectBug;
 
-
-public class DefaultEncoding {
+/**
+ * Used by <code>DefaultEncodingDetectorTest</code> as sample code to test
+ * <code>DefaultEncodingDetector</code>.
+ * <p>
+ * Methods containing deliberate encoding bugs are marked with
+ * <code>@ExpectBug</code>.
+ * <p>
+ * If unexpected bugs are detected, or expected bugs are missing,
+ * <code>DefaultEncodingDetectorTest</code> fails.
+ */
+public class DefaultEncodingTestData {
 
 	/**
 	 * Does not override the parent class's problematic method. Invocations of

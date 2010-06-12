@@ -2,6 +2,9 @@ package org.soal.detector;
 
 import edu.umd.cs.findbugs.ba.AnnotationDatabase;
 
+/**
+ * Sets up and stors DefaultEncodingAnnotations on JCL methods.
+ */
 public class DefaultEncodingAnnotationDatabase extends AnnotationDatabase<DefaultEncodingAnnotation> {
 
 	public DefaultEncodingAnnotationDatabase() {
