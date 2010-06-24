@@ -2,13 +2,21 @@
 
 <FindbugsPlugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    				xsi:noNamespaceSchemaLocation="findbugsplugin.xsd"
-				pluginid="soal.detector.extras"
+				pluginid="ljcu.findbugs.plugin"
                 defaultenabled="true"
-                provider="soal" 
-                website="http://blog.soal.org">
+                provider="ljcu" 
+                website="http://londonjavacommunity.wordpress.com/">
                 
-  <Detector class="org.soal.detector.DefaultEncodingDetector" speed="fast" reports="SOAL_DEFAULT_ENCODING"/>
+  <Detector class="ljc.unconf.detector.LjcuDetector1" speed="fast" reports="LJCU_BUG_1"/>
+  <Detector class="ljc.unconf.detector.LjcuDetector2" speed="fast" reports="LJCU_BUG_2"/>
+  <Detector class="ljc.unconf.detector.LjcuDetector3" speed="fast" reports="LJCU_BUG_3"/>
+  <Detector class="ljc.unconf.detector.LjcuDetector4" speed="fast" reports="LJCU_BUG_4"/>
+  <Detector class="ljc.unconf.detector.LjcuDetector5" speed="fast" reports="LJCU_BUG_5"/>
   
-  <BugPattern abbrev="DENC" type="SOAL_DEFAULT_ENCODING" category="BAD_PRACTICE" />
+  <BugPattern type="LJCU_BUG_1" abbrev="LJCU" category="BAD_PRACTICE" />
+  <BugPattern type="LJCU_BUG_2" abbrev="LJCU" category="BAD_PRACTICE" />
+  <BugPattern type="LJCU_BUG_3" abbrev="LJCU" category="BAD_PRACTICE" />
+  <BugPattern type="LJCU_BUG_4" abbrev="LJCU" category="BAD_PRACTICE" />
+  <BugPattern type="LJCU_BUG_5" abbrev="LJCU" category="BAD_PRACTICE" />
   
 </FindbugsPlugin>

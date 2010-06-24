@@ -4,36 +4,60 @@
 	xsi:noNamespaceSchemaLocation="messagecollection.xsd">
 
 	<Plugin>
-		<ShortDescription>Default encoding plugin</ShortDescription>
-		<Details>
-			<![CDATA[
-			<p>
-			This plugin contains a FindBugs extension to detect uses of the default platform encoding.
-			</p>
-			]]>
-		</Details>
+		<ShortDescription>LJCU FindBugs Plugin</ShortDescription>
+		<Details><![CDATA[<p>A plugin created for the second LJC Unconference.</p>]]></Details>
 	</Plugin>
 
+	<BugCode abbrev="LJCU">A bug found by the LJCU plugin.</BugCode>
 	
-	<Detector class="org.soal.detector.DefaultEncodingDetector">
-		<Details>
-<![CDATA[
-<p> Found a call to a method which will perform a byte to String (or String to byte) conversion, and will assume that the default platform encoding is suitable. This will cause the application behaviour to vary between platforms. Use an alternative API and specify a charset name or Charset object explicitly.
-]]>
-		</Details>
+	<Detector class="ljc.unconf.detector.LjcuDetector1">
+		<Details><![CDATA[<p>Example detector class 1.</p>]]></Details>
 	</Detector>
+	
+	<Detector class="ljc.unconf.detector.LjcuDetector2">
+		<Details><![CDATA[<p>Example detector class 2.</p>]]></Details>
+	</Detector>
+	
+	<Detector class="ljc.unconf.detector.LjcuDetector3">
+		<Details><![CDATA[<p>Example detector class 3.</p>]]></Details>
+	</Detector>
+	
+	<Detector class="ljc.unconf.detector.LjcuDetector4">
+		<Details><![CDATA[<p>Example detector class 4.</p>]]></Details>
+	</Detector>
+	
+	<Detector class="ljc.unconf.detector.LjcuDetector5">
+		<Details><![CDATA[<p>Example detector class 5.</p>]]></Details>
+	</Detector>		
 
-
-	<BugPattern type="SOAL_DEFAULT_ENCODING">
-		<ShortDescription>Reliance on default encoding</ShortDescription>
-		<LongDescription>Found reliance on default encoding in {1}: {2}
-		</LongDescription>
-		<Details>
-<![CDATA[
-<p> Found a call to a method which will perform a byte to String (or String to byte) conversion, and will assume that the default platform encoding is suitable. This will cause the application behaviour to vary between platforms. Use an alternative API and specify a charset name or Charset object explicitly.
-]]>
-		</Details>
+	<BugPattern type="LJCU_BUG_1">
+		<ShortDescription>Example bug type 1.</ShortDescription>
+		<LongDescription>Example bug type 1 found in {0} - {1}.</LongDescription>
+		<Details><![CDATA[<p>How to fix bug type 1...</p>]]></Details>
+	</BugPattern>
+	
+	<BugPattern type="LJCU_BUG_2">
+		<ShortDescription>Example bug type 2.</ShortDescription>
+		<LongDescription>Example bug type 2 found in class {0} and method {1}.</LongDescription>
+		<Details><![CDATA[<p>How to fix bug type 2...</p>]]></Details>
 	</BugPattern>
 
-	<BugCode abbrev="DENC">Found default encoding usage</BugCode>
+	<BugPattern type="LJCU_BUG_3">
+		<ShortDescription>Example bug type 3.</ShortDescription>
+		<LongDescription>Found forbidden String litteral found in class {0}, method {1}, line {2}, value={3}.</LongDescription>
+		<Details><![CDATA[<p>How to fix bug type 3...</p>]]></Details>
+	</BugPattern>
+	
+	<BugPattern type="LJCU_BUG_4">
+		<ShortDescription>Example bug type 4.</ShortDescription>
+		<LongDescription>Example bug type 4 found in {0}.</LongDescription>
+		<Details><![CDATA[<p>How to fix bug type 4...</p>]]></Details>
+	</BugPattern>
+
+	<BugPattern type="LJCU_BUG_5">
+		<ShortDescription>Example bug type 5.</ShortDescription>
+		<LongDescription>Example bug type 5.</LongDescription>
+		<Details><![CDATA[<p>How to fix bug type 5...</p>]]></Details>
+	</BugPattern>		
+	
 </MessageCollection>
