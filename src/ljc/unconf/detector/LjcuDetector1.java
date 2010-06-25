@@ -32,8 +32,8 @@ public class LjcuDetector1 implements Detector {
 				new BugInstance("LJCU_BUG_1", Priorities.HIGH_PRIORITY)
 					.addClass(classContext.getClassDescriptor())
 					
-					// We can add more info to the bug:
-					//.addString("my extra data");
+					//We can add more info to the bug:
+					//.addString("my extra data")
 				);
 	}
 

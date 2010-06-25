@@ -22,8 +22,7 @@ public class LjcuDetector4  extends OpcodeStackDetector {
 		case INVOKEVIRTUAL:
 		case INVOKESPECIAL:
 		case INVOKESTATIC:
-			String invokedMethodName = this.getMethodDescriptorOperand()
-					.getName();
+			String invokedMethodName = this.getMethodDescriptorOperand().getName();
 
 			if ("foo".equals(invokedMethodName) || "bar".equals(invokedMethodName)) {
 				

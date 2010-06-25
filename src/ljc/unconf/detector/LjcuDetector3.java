@@ -22,7 +22,7 @@ public class LjcuDetector3 extends OpcodeStackDetector {
 	@Override
 	public void visit(Method method) {
 		super.visit(method);
-				
+	
 		String methodName = method.getName();
 		
 		if ("foo".equals(methodName) || "bar".equals(methodName)) {
