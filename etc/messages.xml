@@ -38,25 +38,25 @@
 	
 	<BugPattern type="LJCU_BUG_2">
 		<ShortDescription>Example bug type 2.</ShortDescription>
-		<LongDescription>Example bug type 2 found in class {0} and method {1}.</LongDescription>
+		<LongDescription>Example bug type 2: found foo() or bar() in {0} ({2}). Method is: {1}.</LongDescription>
 		<Details><![CDATA[<p>How to fix bug type 2...</p>]]></Details>
 	</BugPattern>
 
 	<BugPattern type="LJCU_BUG_3">
 		<ShortDescription>Example bug type 3.</ShortDescription>
-		<LongDescription>Found forbidden String litteral found in class {0}, method {1}, line {2}, value={3}.</LongDescription>
+		<LongDescription>Example bug type 3: found foo() or bar() in {0} ({2}). Method is: {1}.</LongDescription>
 		<Details><![CDATA[<p>How to fix bug type 3...</p>]]></Details>
 	</BugPattern>
 	
 	<BugPattern type="LJCU_BUG_4">
 		<ShortDescription>Example bug type 4.</ShortDescription>
-		<LongDescription>Example bug type 4 found in {0}.</LongDescription>
+		<LongDescription>Example bug type 3: found call to foo() or bar() in {0} ({2}). Callsite method is: {1}.</LongDescription>
 		<Details><![CDATA[<p>How to fix bug type 4...</p>]]></Details>
 	</BugPattern>
 
 	<BugPattern type="LJCU_BUG_5">
 		<ShortDescription>Example bug type 5.</ShortDescription>
-		<LongDescription>Example bug type 5.</LongDescription>
+		<LongDescription>Found forbidden String litteral found in class {0}, method {1}, line {2}, value={3}.</LongDescription>
 		<Details><![CDATA[<p>How to fix bug type 5...</p>]]></Details>
 	</BugPattern>		
 	

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import ljc.unconf.detector.LjcuDetector3;
+import ljc.unconf.detector.LjcuDetector5;
 
 import org.soal.findbugs.test.support.DetectorTester;
 import org.soal.findbugs.test.support.SimpleBugReporter;
@@ -24,7 +24,7 @@ public class DetectorRunner {
 		DetectorTester detectorTester = new DetectorTester();
 		detectorTester.setBugPattern(bugPattern);
 		detectorTester.setBugReporter(bugReporter);
-		detectorTester.analyse(LjcuDetector3.class, "test/data/bin");
+		detectorTester.analyse(LjcuDetector5.class, "test/data/bin");
 
 		System.out.println(format(bugReporter.getBugs()));
 	}

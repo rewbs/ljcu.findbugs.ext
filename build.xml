@@ -52,39 +52,15 @@
 	</target>
 
 
-	<target name="test" description="Test the findbugs plugin" depends="build, compile-test">
-		<mkdir dir="reports" />
-		<junit printsummary="yes" failureproperty="junit.failed">
-			<classpath>
-				<pathelement location="bin" />
-				<pathelement location="test/bin" />
-				<pathelement location="test/data/bin" />
-			</classpath>
-			<classpath refid="deps.path" />
-
-
-			<formatter type="plain" />
-
-			<batchtest fork="false" todir="reports">
-				<fileset dir="test/junit">
-					<include name="**/*Test.java" />
-				</fileset>
-			</batchtest>
-		</junit>
-		
-		<fail if="junit.failed">At least one unit test failed - see report for details.</fail>
-		
-	</target>
-
 	<target name="compile-test">
 		<mkdir dir="test/bin" />
-		<javac debug="on" destdir="test/bin" target="1.5" source="1.5">
+		<!-- javac debug="on" destdir="test/bin" target="1.5" source="1.5">
 			<src path="test/junit" />
 			<include name="**" />
 			<classpath location="src" />
 			<classpath location="bin" />
 			<classpath refid="deps.path" />
-		</javac>
+		</javac -->
 
 		<mkdir dir="test/data/bin" />
 		<javac debug="on" destdir="test/data/bin" target="1.5" source="1.5">
@@ -115,9 +91,9 @@
 		</findbugs>
 	</target>
 
-	<target name="dist" description="Build, test, package and find bugs" depends="build, test, deploy, findbugs" />
+	<target name="dist" description="Build, package and find bugs" depends="build, deploy, findbugs" />
 
-	<target name="package" depends="build, test">
+	<target name="package" depends="build">
 		<mkdir dir="dist" />
 		<jar destfile="dist/${dist.jar.name}">
 			<fileset dir="bin" />

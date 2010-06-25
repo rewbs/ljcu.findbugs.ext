@@ -1,54 +1,44 @@
 package ljc.unconf.detector;
 
-import org.apache.bcel.Constants;
-import org.apache.bcel.classfile.Constant;
-import org.apache.bcel.classfile.ConstantString;
+import org.apache.bcel.classfile.Method;
 
 import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.BugReporter;
 import edu.umd.cs.findbugs.Priorities;
 import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
 
+/**
+ * Report a bug if a method called "foo" or "bar" is declared.
+ * Extend a built-in visitor to simplify the code.
+ */
 public class LjcuDetector3 extends OpcodeStackDetector {
 
-	private static final String FORBIDDEN_STRING = "EVIL";
 	private BugReporter reporter;
 
 	public LjcuDetector3(BugReporter reporter) {
 		this.reporter = reporter;
 	}
-
+	
 	@Override
-	public void sawOpcode(int seen) {
+	public void visitMethod(Method method) {
+		super.visitMethod(method);
 		
-		if (seen != Constants.LDC
-				&& seen != Constants.LDC_W) {
-			// If this bytecode is not a load constant,
-			// we're not interested.			
-			return;
-		}
-
-		Constant operand = this.getConstantRefOperand();
-		if (!(operand instanceof ConstantString)) {
-			// If the constant being loaded is not a String,
-			// we're not interested.			
-			return;
-		}
-			
-		String value = ((ConstantString)operand).getBytes(this.getConstantPool());
-		if (value.contains(FORBIDDEN_STRING)) {
-			// The String litteral being loaded is forbidden!
-			// Report Bug.
+		String methodName = method.getName();
+		
+		if ("foo".equals(methodName) || "foo".equals(methodName)) {
 			reporter.reportBug(
 				new BugInstance("LJCU_BUG_3", Priorities.HIGH_PRIORITY)
-				.addClass(this)
-				.addMethod(this)
-				.addSourceLine(this)
-				.addString(value)
-			);			
+					.addClass(this)
+					.addMethod(this)
+					.addSourceLine(this)
+				);
 		}
 		
 	}
 
+	
+	@Override
+	public void sawOpcode(int seen) {
+	}
 
 }

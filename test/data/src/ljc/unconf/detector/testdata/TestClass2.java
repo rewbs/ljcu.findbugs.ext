@@ -4,8 +4,7 @@ public class TestClass2 {
 		
 	public String foo() {
 		bar();
-		return "This is foo()";
-		
+		return "This is foo()";	
 	}
 	
 	public static String bar() {

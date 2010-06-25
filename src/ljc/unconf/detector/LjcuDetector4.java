@@ -2,11 +2,13 @@ package ljc.unconf.detector;
 
 import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.BugReporter;
-import edu.umd.cs.findbugs.Detector;
 import edu.umd.cs.findbugs.Priorities;
-import edu.umd.cs.findbugs.ba.ClassContext;
+import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
 
-public class LjcuDetector4 implements Detector {
+/**
+ * Report a bug if a method called "foo" or "bar" is called.
+ */
+public class LjcuDetector4  extends OpcodeStackDetector {
 
 	private BugReporter reporter;
 
@@ -15,10 +17,23 @@ public class LjcuDetector4 implements Detector {
 	}
 	
 	@Override
-	public void visitClassContext(ClassContext classContext) {
-	}
+	public void sawOpcode(int seen) {
+		switch(seen) {
+		case INVOKEVIRTUAL:
+		case INVOKESPECIAL:
+		case INVOKESTATIC:
+			String invokedMethodName = this.getMethodDescriptorOperand()
+					.getName();
 
-	@Override
-	public void report() {
+			if ("foo".equals(invokedMethodName) || "bar".equals(invokedMethodName)) {
+				
+				reporter.reportBug(
+						new BugInstance("LJCU_BUG_3", Priorities.HIGH_PRIORITY)
+						.addClass(this)
+						.addMethod(this)
+						.addSourceLine(this)
+				);
+			}
+		}
 	}
 }

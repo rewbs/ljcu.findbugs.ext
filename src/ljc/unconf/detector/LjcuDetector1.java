@@ -6,6 +6,9 @@ import edu.umd.cs.findbugs.Detector;
 import edu.umd.cs.findbugs.Priorities;
 import edu.umd.cs.findbugs.ba.ClassContext;
 
+/**
+ * Report a bug on every class!
+ */
 public class LjcuDetector1 implements Detector {
 
 	private BugReporter reporter;
@@ -39,7 +42,6 @@ public class LjcuDetector1 implements Detector {
 	 */	
 	@Override
 	public void report() {
-		System.out.println("Detector 1 - report");
 	}
 
 
