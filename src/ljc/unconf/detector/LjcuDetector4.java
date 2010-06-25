@@ -28,7 +28,7 @@ public class LjcuDetector4  extends OpcodeStackDetector {
 			if ("foo".equals(invokedMethodName) || "bar".equals(invokedMethodName)) {
 				
 				reporter.reportBug(
-						new BugInstance("LJCU_BUG_3", Priorities.HIGH_PRIORITY)
+						new BugInstance("LJCU_BUG_4", Priorities.HIGH_PRIORITY)
 						.addClass(this)
 						.addMethod(this)
 						.addSourceLine(this)

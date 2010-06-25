@@ -32,7 +32,7 @@
 
 	<BugPattern type="LJCU_BUG_1">
 		<ShortDescription>Example bug type 1.</ShortDescription>
-		<LongDescription>Example bug type 1 found in {0} - {1}.</LongDescription>
+		<LongDescription>Example bug type 1 found in {0}.</LongDescription>
 		<Details><![CDATA[<p>How to fix bug type 1...</p>]]></Details>
 	</BugPattern>
 	

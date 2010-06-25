@@ -20,12 +20,12 @@ public class LjcuDetector3 extends OpcodeStackDetector {
 	}
 	
 	@Override
-	public void visitMethod(Method method) {
-		super.visitMethod(method);
-		
+	public void visit(Method method) {
+		super.visit(method);
+				
 		String methodName = method.getName();
 		
-		if ("foo".equals(methodName) || "foo".equals(methodName)) {
+		if ("foo".equals(methodName) || "bar".equals(methodName)) {
 			reporter.reportBug(
 				new BugInstance("LJCU_BUG_3", Priorities.HIGH_PRIORITY)
 					.addClass(this)

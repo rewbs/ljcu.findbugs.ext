@@ -3,7 +3,6 @@ package ljc.unconf.detector.testdata;
 public class TestClass2 {
 		
 	public String foo() {
-		bar();
 		return "This is foo()";	
 	}
 	
