@@ -11,7 +11,7 @@ import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
 
 public class LjcuDetector3 extends OpcodeStackDetector {
 
-	private static final String FORBIDDEN_STRING = "LJCU";
+	private static final String FORBIDDEN_STRING = "EVIL";
 	private BugReporter reporter;
 
 	public LjcuDetector3(BugReporter reporter) {
@@ -21,8 +21,9 @@ public class LjcuDetector3 extends OpcodeStackDetector {
 	@Override
 	public void sawOpcode(int seen) {
 		
-		if (seen != Constants.LDC) {
-			// If this bytecode is not a single-word load constant,
+		if (seen != Constants.LDC
+				&& seen != Constants.LDC_W) {
+			// If this bytecode is not a load constant,
 			// we're not interested.			
 			return;
 		}

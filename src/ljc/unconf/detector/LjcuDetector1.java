@@ -24,13 +24,13 @@ public class LjcuDetector1 implements Detector {
 	 */	
 	@Override
 	public void visitClassContext(ClassContext classContext) {
-		
-		System.out.println("Detector 1 analysing class: " 
-				+ classContext.getClassDescriptor().getClassName());
-		
+		// Report a bug on every class :)
 		reporter.reportBug(
 				new BugInstance("LJCU_BUG_1", Priorities.HIGH_PRIORITY)
 					.addClass(classContext.getClassDescriptor())
+					
+					// We can add more info to the bug:
+					//.addString("my extra data");
 				);
 	}
 

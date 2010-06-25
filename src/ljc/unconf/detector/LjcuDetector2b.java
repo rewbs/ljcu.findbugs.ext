@@ -7,11 +7,11 @@ import edu.umd.cs.findbugs.BugReporter;
 import edu.umd.cs.findbugs.Priorities;
 import edu.umd.cs.findbugs.bcel.PreorderDetector;
 
-public class LjcuDetector2 extends PreorderDetector {
+public class LjcuDetector2b extends PreorderDetector {
 
 	private BugReporter reporter;
 
-	public LjcuDetector2(BugReporter reporter) {
+	public LjcuDetector2b(BugReporter reporter) {
 		this.reporter = reporter;
 	}
 	
