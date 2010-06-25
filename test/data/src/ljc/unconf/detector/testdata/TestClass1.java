@@ -2,12 +2,12 @@ package ljc.unconf.detector.testdata;
 
 public class TestClass1 {
 	
-	public void foo() {
-		System.out.println("This is foo!");
+	public void myMethod() {
+		System.out.println("This is myMethod!");
 	}
 
-	public void bar() {
-		System.out.println("This is bar!");
+	public void myOtherMethod() {
+		System.out.println("This is myOtherMethod!");
 	}
 
 }
