@@ -2,11 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" output="test/data/bin" path="test/data/src"/>
-	<classpathentry kind="src" path="test/junit"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/findbugs"/>
 	<classpathentry kind="lib" path="deps/findbugs/lib/findbugs.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/DefaultEncoding.findbugs.ext"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -30,10 +30,9 @@ public class LjcuDetector1 implements Detector {
 		// Report a bug on every class :)
 		reporter.reportBug(
 				new BugInstance("LJCU_BUG_1", Priorities.HIGH_PRIORITY)
-					.addClass(classContext.getClassDescriptor())
-					
+					.addClass(classContext.getClassDescriptor())	
 					//We can add more info to the bug:
-					//.addString("my extra data")
+					.addString("my extra data")
 				);
 	}
 
