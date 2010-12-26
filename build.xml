@@ -79,7 +79,7 @@
 		<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="deps.path" />
 		<findbugs
 			includeFilter="filter.xml"
-			home="deps/findBugs" output="html" outputFile="reports/findbugsReport.html" jvmargs="-Xmx128m">
+			home="deps/findbugs" output="html" outputFile="reports/findbugsReport.html" jvmargs="-Xmx128m">
 
 			<!-- Finbugs's own classes are required as auxiliary classes,
 				 so that it can analyse the plugin -->
